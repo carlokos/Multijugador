@@ -11,8 +11,16 @@ public class PlayerSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Transform spawPoint;
         int randomNumber = Random.Range(0, spawnPoints.Length);
-        Transform spawPoint = spawnPoints[randomNumber];
+        if (PhotonNetwork.IsMasterClient)
+        {
+             spawPoint = spawnPoints[0];
+        }
+        else
+        {
+            spawPoint = spawnPoints[1];
+        }
         GameObject playerToSpawn = playerPrefabs[(int)PhotonNetwork.LocalPlayer.CustomProperties["PlayerAvatar"]];
         PhotonNetwork.Instantiate(playerToSpawn.name, spawPoint.position, Quaternion.identity);
     }

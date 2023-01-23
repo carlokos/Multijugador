@@ -134,4 +134,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         UpdatePlayerList();
     }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("Can't Join room, try another one" + message);
+    }
 }
